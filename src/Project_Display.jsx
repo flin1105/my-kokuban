@@ -1,27 +1,46 @@
 import React, { useState } from "react";
+const default_headers = [
+	{ header_Name: "Tasks", header_Type: "text" },
+	{ header_Name: "Status", header_Type: "text" },
+	{ header_Name: "Description", header_Type: "text" },
+	{ header_Name: "Due Date", header_Type: "text" },
+];
+const defaultRow = ["Task 1", "Working on it", "Description of task", "N/A"];
 
 const Project_Display = () => {
-	// const [currentList, setCurrentList] = useState([{ item }]);
+	const [headers, setHeaders] = useState(default_headers);
+	const [row, setRow] = useState(defaultRow);
 
-	const headers = ["Tasks", "Status", "Description", "Due Date"];
-	const defaultRow = ["Task 1", "Working on it", "", ""];
+	const handleNewRow = () => {
+		const newHeaders = [
+			...headers,
+			{ header_Name: "New Header", header_Type: "text" },
+		];
+		const newRow = [...row, "test"];
+		setHeaders(newHeaders);
+		setRow(newRow);
+
+		console.log("new headers,", headers);
+	};
 
 	return (
 		<div>
 			<h3>Project Display</h3>
 			<table>
-				<tr>
-					{headers.map((header, index) => (
-						<th key={index}>{header}</th>
-					))}
-				</tr>
-				<tr>
-					{defaultRow.map((row, index) => (
-						<td key={index}>{row}</td>
-					))}
-				</tr>
+				<tbody>
+					<tr>
+						{headers.map((header, index) => (
+							<th key={index}>{header.header_Name}</th>
+						))}
+					</tr>
+					<tr>
+						{row.map((row, index) => (
+							<td key={index}>{row}</td>
+						))}
+					</tr>
+				</tbody>
 			</table>
-			<button>Add Task</button>
+			<button onClick={handleNewRow}>Add Column</button>
 		</div>
 	);
 };
